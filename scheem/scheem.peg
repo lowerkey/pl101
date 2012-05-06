@@ -1,0 +1,25 @@
+start =
+	expression
+    
+validchar
+	= [0-9a-zA-Z_?!+\-=@#$%^&*/.]
+
+atom =
+	chars:validchar+
+		{ return chars.join(""); }
+
+paren_expression = 
+	"(" el:expression_list ")"
+		{ return el; }
+
+expression = 
+	atom
+	/ paren_expression
+
+space_expression = 
+	[ ] e:expression
+		{return e;}
+    
+expression_list = 
+	head:expression tail:space_expression*
+		{var arr = [head]; for(var i=0; i<tail.length; i++){arr.push(tail[i]);} return arr;}
