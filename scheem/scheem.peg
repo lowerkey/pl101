@@ -1,8 +1,8 @@
 start =
-    expression
-
-validchar
-    = [0-9a-zA-Z_?!+\-=@#$%^&*/.]
+	expression
+	
+validchar = 
+	[0-9a-zA-Z_?!+\-=@#$%^&*/.]
 
 atom =
     chars:validchar+
@@ -16,9 +16,23 @@ expression =
     atom
     / paren_expression
     / quote_expression
+	/ atom:atom comment
+		{return atom}
+	/ pe:paren_expression comment
+		{return pe}
+	/ qe:quote_expression comment
+		{return qe}
+	
+newline = 
+	"\n"
+	/ "\r\n"
+
+comment = 
+    ";;" [0-9a-zA-Z_?!+\-=@#$%^&*/. ]* newline+
 
 space = 
-    [\n\t ]*
+	comment
+    / [\n\t ]*
 
 space_expression = 
     space e:expression

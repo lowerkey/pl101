@@ -69,6 +69,6 @@ test(function(){
 
 // homework part 1.3 comments
 test(function(){
-    console.log(parse('(a b;;test\nc)'));
+    console.log( parse('(a b;;test\nc)') );
     assert.deepEqual( parse('(a b;; test\nc)'), ['a','b','c'] );
 }, "comments");
