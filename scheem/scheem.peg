@@ -17,7 +17,7 @@ expression =
     / paren_expression
 
 space = 
-    [ ]*
+    [\n\t ]*
 
 space_expression = 
     space e:expression

@@ -44,3 +44,8 @@ test(function(){
 test(function(){
     assert.deepEqual( parse('( a   b c)'), ['a', 'b', 'c'] );
 }, 'leading spaces ( a  b c)');
+
+// homework part 1.1 newlines and tabs
+test(function(){
+    assert.deepEqual( parse('(a\nb\tc)'), ['a','b','c']);
+}, 'newlines and tabs');
