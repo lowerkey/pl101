@@ -19,11 +19,19 @@ function test(fun, title){
 	fun();
 	console.log('pass: ' + title);
     }catch(e){
-	if(e instanceof SyntaxError){
-	    console.log('\nError: ' + e.message);
-	    console.log('fail: ' + title);
-	}else{
-	    throw e;
+	try{
+	    if(e instanceof SyntaxError){
+		console.log('\nError: ' + e.message);
+		console.log('fail: ' + title);
+	    }else{
+		throw e;
+	    }
+	}catch(e){
+	    if(e instanceof assert.AssertionError){
+		console.log('fail: ' + title);
+	    }else{
+		throw e;
+	    }
 	}
     }
 }
@@ -49,3 +57,12 @@ test(function(){
 test(function(){
     assert.deepEqual( parse('(a\nb\tc)'), ['a','b','c']);
 }, 'newlines and tabs');
+
+// homework part 1.2 quotes
+test(function(){
+    assert.deepEqual( parse("'x"), ['quote', 'x']);
+}, "simple quotes 'x");
+
+test(function(){
+    assert.deepEqual( parse("'(1 2 3)"), ['quote', ['1', '2', '3']]);
+}, "exression list quotes '(1 2 3)");

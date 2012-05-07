@@ -1,6 +1,6 @@
 start =
     expression
-    
+
 validchar
     = [0-9a-zA-Z_?!+\-=@#$%^&*/.]
 
@@ -15,6 +15,7 @@ paren_expression =
 expression = 
     atom
     / paren_expression
+    / quote_expression
 
 space = 
     [\n\t ]*
@@ -26,3 +27,9 @@ space_expression =
 expression_list = 
     head:space_expression tail:space_expression*
         {var arr = [head]; for(var i=0; i<tail.length; i++){arr.push(tail[i]);} return arr}
+
+quote_expression = 
+    ['] atom:atom
+        {return ["quote", atom]}
+    / ['] el:expression_list
+        {return ['quote', el[0]]}
