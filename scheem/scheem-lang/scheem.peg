@@ -1,0 +1,55 @@
+start =
+	expression
+	
+validchar = 
+	[0-9a-zA-Z_?!+\-=@#$%^&*/.]
+
+integer = 
+	digits:[0-9]+
+		{ return digits.join(""); }
+	
+atom =
+	int:integer
+		{ return parseInt(int); }
+	/ chars:validchar+
+		{ return chars.join(""); }
+
+paren_expression = 
+	[(] el:expression_list [)]
+		{return el}
+
+expression = 
+	atom
+	/ paren_expression
+	/ quote_expression
+	/ atom:atom comment
+		{return atom}
+	/ pe:paren_expression comment
+		{return pe}
+	/ qe:quote_expression comment
+		{return qe}
+	
+newline = 
+	"\n"
+	/ "\r\n"
+
+comment = 
+	";;" [0-9a-zA-Z_?!+\-=@#$%^&*/. ]* newline+
+
+space = 
+	comment
+	/ [\n\t ]*
+
+space_expression = 
+	space e:expression
+		{return e}
+    
+expression_list = 
+	head:space_expression tail:space_expression*
+		{var arr = [head]; for(var i=0; i<tail.length; i++){arr.push(tail[i]);} return arr}
+
+quote_expression = 
+	['] atom:atom
+		{return ["quote", atom]}
+	/ ['] el:expression_list
+		{return ['quote', el[0]]}
