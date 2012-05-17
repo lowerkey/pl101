@@ -62,37 +62,43 @@ var evalScheem = function (expr, env) {
 		return x + y;
 	});
 	
+	add_binding(env, '-', function(x, y){
+		return x - y;
+	});
+	
+	add_binding(env, '*', function(x, y){
+		return x * y;
+	});
+	
+	add_binding(env, '/', function(x, y){
+		return x / y;
+	});
+	
+	add_binding(env, '<', function(x, y){
+		return x < y ? '#t' : '#f';
+	});
+	
+	add_binding(env, 'cons', function(a, b){
+		return [a].concat(b);
+	});
+	
+	add_binding(env, 'car', function(a){
+		return a[0];
+	});
+
+	add_binding(env, 'cdr', function(a){
+		return a.slice(1);
+	});
+
+	add_binding(env, '=', function(a, b){
+		return a === b ? '#t' : '#f';
+	});
+	
 	try{
 		
 		// Look at head of list for operation
 		switch (expr[0]) {
-
-		/*
-			case '+':
-				if(expr.length !== 3)
-					throw new Error(expr[0] + ' takes 2 arguments.');
-				return evalScheem(expr[1], env) +
-					   evalScheem(expr[2], env);
-		*/
-		
-			case '-':
-				if(expr.length !== 3)
-					throw new Error(expr[0] + ' takes 3 arguments.');
-				return evalScheem(expr[1], env) -
-					   evalScheem(expr[2], env);
-					   
-			case '*':
-				if(expr.length !== 3)
-					throw new Error(expr[0] + ' takes 3 arguments.');
-				return evalScheem(expr[1], env) * 
-					   evalScheem(expr[2], env);
-					   
-			case '/':
-				if(expr.length !== 3)
-					throw new Error(expr[0] + ' takes 3 arguments.');
-				return evalScheem(expr[1], env) /
-					   evalScheem(expr[2], env);
-					   
+  
 			case 'begin':
 				if(expr.length < 2)
 					throw new Error(expr[0] + ' takes at least 1 argument.');
@@ -138,42 +144,6 @@ var evalScheem = function (expr, env) {
 				if(expr.length !== 2)
 					throw new Error(expr[0] + ' takes 1 argument.');
 				return expr[1];
-				
-			case '<':
-				if(expr.length !== 3)
-					throw new Error(expr[0] + ' takes 2 arguments.');
-				return evalScheem(expr[1]) < 
-					   evalScheem(expr[2]) ? 
-					'#t' : '#f';
-					
-			case 'cons':
-				// (cons a (b c)) returns (a b c)
-				if(expr.length !== 3)
-					throw new Error(expr[0] + ' takes 2 arguments.');
-				return [evalScheem(expr[1], env)].concat(evalScheem(expr[2], env));
-				
-			case 'car':
-				// (car (a b c)) returns a
-				if(expr.length !== 2)
-					throw new Error(expr[0] + ' takes 1 argument.');
-				return evalScheem(expr[1], env)[0];
-				
-			case 'cdr':
-				// (cdr (a b c)) returns (b c)
-				if(expr.length !== 2)
-					throw new Error(expr[0] + ' takes 1 argument.');
-				return evalScheem(expr[1], env).slice(1);
-				
-			case '=':
-				if(expr.length !== 3)
-					throw new Error(expr[0] + ' takes 2 arguments.');
-				var eq =
-					(evalScheem(expr[1], env) ===
-					 evalScheem(expr[2], env));
-				if (eq) 
-					return '#t';
-				else
-					return '#f';
 					
 			case 'if':
 				if(expr.length !== 4)
@@ -198,23 +168,6 @@ var evalScheem = function (expr, env) {
 				
 			case 'lambda':
 				return function(/* arguments */){
-					
-					/*
-					if(expr[1].length !== arguments.length)
-						throw new Error('Number of supplied arguments (' + arguments.length + ") doesn't match number of expected arguments (" + expr[2].length + ").");
-					*/
-					
-					/*
-					var newenv = {bindings: bindings, outer: env};
-					for(var i=0; i<expr[1].length; i++){
-						var expr1iEval = '';
-						if(typeof expr[1][i] === 'string')
-							expr1iEval = expr[1][i];
-						else
-							expr1iEval = evalScheem(expr[1][i], env);
-						bindings[expr1iEval] = arguments[i];
-					}
-					*/
 				
 					var bindings = {};
 					var newEnv = {bindings: bindings, outer: env};
