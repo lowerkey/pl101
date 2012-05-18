@@ -5,13 +5,9 @@ validchar =
 	[0-9a-zA-Z_?!+\-=@#$%^&*/.]
 
 integer = 
-<<<<<<< HEAD
-	digits:[0-9]+
-		{ return digits.join(""); }
-=======
 	sign:"-"* digits:[0-9]+
 		{ return sign + digits.join(""); }
->>>>>>> gh-pages
+
 	
 atom =
 	int:integer
