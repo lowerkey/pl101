@@ -18,10 +18,7 @@ function evalScheemString(program){
 }
 
 // Some unit tests
-<<<<<<< HEAD
-=======
 
->>>>>>> gh-pages
 // interpreter
 suite('quote', function() {
     test('a number', function() {
@@ -67,30 +64,18 @@ suite('add', function() {
 suite('other arithmetic', function(){
 	test('multiplication', function(){
 		assert.deepEqual(
-<<<<<<< HEAD
-			evalScheem(['*', 3, 4]),
-=======
 			evalScheem(['*', 3, 4], {}),
->>>>>>> gh-pages
 			12
 		);
 	});
 	test('division', function(){
 		assert.deepEqual(
-<<<<<<< HEAD
-			evalScheem(['/', 12, 4]),
-=======
 			evalScheem(['/', 12, 4], {}),
->>>>>>> gh-pages
 			3
 		);
 	});
 });
-<<<<<<< HEAD
-suite('begin and set', function(){
-=======
 suite('begin define and set', function(){
->>>>>>> gh-pages
 	test('begin', function(){
 		assert.deepEqual(
 			evalScheem(['begin', ['+', 2, 2]], {}),
@@ -101,11 +86,7 @@ suite('begin define and set', function(){
 		var environment = {};
 		evalScheem(['begin', ['define', 'x', 0], ['set!', 'x', 3]], environment);
 		assert.deepEqual(
-<<<<<<< HEAD
-			environment.x,
-=======
 			environment.bindings.x,
->>>>>>> gh-pages
 			3
 		);
 	});
@@ -113,12 +94,6 @@ suite('begin define and set', function(){
 		var environment = {};
 		evalScheem(['begin', ['define', 'ab', 0], ['set!', 'ab', 4]], environment);
 		assert.deepEqual(
-<<<<<<< HEAD
-			environment.ab,
-			4
-		);
-	});	
-=======
 			environment.bindings.ab,
 			4
 		);
@@ -129,16 +104,11 @@ suite('begin define and set', function(){
 			6
 		);
 	});
->>>>>>> gh-pages
 	test('define eval variable name', function(){
 		var environment = {};
 		evalScheem(['begin', ['define', ['concatStr', ['quote', 'a'], ['quote', 'b']], 3], ['set!', 'ab', 4]], environment);
 		assert.deepEqual(
-<<<<<<< HEAD
-			environment.ab,
-=======
 			environment.bindings.ab,
->>>>>>> gh-pages
 			4
 		);
 	});
@@ -279,11 +249,7 @@ suite('concatStr', function(){
 			evalScheem(['concatStr', ['quote', '1']], {});
 		});
 	});
-<<<<<<< HEAD
-	test('"1" + "2" == "12"', function(){
-=======
 	test('concatStr', function(){
->>>>>>> gh-pages
 		assert.deepEqual(
 			evalScheem(['concatStr', ['quote', '1'], ['quote', '2']], {}),
 			'12'
@@ -363,10 +329,6 @@ suite('=', function(){
 suite('integers', function(){
 	test('parseInt', function(){
 		assert.deepEqual(
-<<<<<<< HEAD
-			evalScheem('1', {}),
-			1
-=======
 			evalScheemString("'(1 2 3)"),
 			[1, 2, 3]
 		);
@@ -375,7 +337,6 @@ suite('integers', function(){
 		assert.deepEqual(
 			evalScheemString("'(1 -2 3)"),
 			[1, -2, 3]
->>>>>>> gh-pages
 		);
 	});
 });
@@ -393,8 +354,6 @@ suite('parser', function(){
 			'x'
 		);
 	});
-<<<<<<< HEAD
-=======
 	test('define', function(){
 		assert.deepEqual(
 			parse('(define x 3)'),
@@ -407,7 +366,6 @@ suite('parser', function(){
 			3
 		);
 	});
->>>>>>> gh-pages
 });
 suite('evalScheemString', function(){
 	test('#t', function(){
@@ -434,15 +392,12 @@ suite('evalScheemString', function(){
 			'#t'
 		);
 	});
-<<<<<<< HEAD
-=======
 	test('(begin (define x 3) (+ x 4))', function(){
 		assert.deepEqual(
 			evalScheemString('(begin (define x 3) (+ x 4))'),
 			7
 		);
 	});
->>>>>>> gh-pages
 });	
 suite('#t', function(){
 	test('parse #t', function(){
@@ -470,9 +425,6 @@ suite('#t', function(){
 		);
 	});	
 });
-<<<<<<< HEAD
-
-=======
 suite('functions, recursion', function(){
 	test("(begin (define factorial (lambda (n) (if (= n 0) 1 (* n (factorial (- n 1)))))) (factorial 5))", function(){
 		assert.deepEqual(
@@ -503,4 +455,3 @@ suite('various', function(){
 		);
 	});
 });
->>>>>>> gh-pages
