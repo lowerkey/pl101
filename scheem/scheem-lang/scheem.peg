@@ -7,7 +7,6 @@ validchar =
 integer = 
 	sign:"-"* digits:[0-9]+
 		{ return sign + digits.join(""); }
-
 	
 atom =
 	int:integer
