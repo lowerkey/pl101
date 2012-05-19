@@ -119,14 +119,6 @@ SCHEEM = (function(){
       }
       
       function parse_integer() {
-<<<<<<< HEAD
-        var result0, result1;
-        var pos0;
-        
-        pos0 = pos;
-        if (/^[0-9]/.test(input.charAt(pos))) {
-          result1 = input.charAt(pos);
-=======
         var result0, result1, result2;
         var pos0, pos1;
         
@@ -135,35 +127,10 @@ SCHEEM = (function(){
         result0 = [];
         if (input.charCodeAt(pos) === 45) {
           result1 = "-";
->>>>>>> gh-pages
           pos++;
         } else {
           result1 = null;
           if (reportFailures === 0) {
-<<<<<<< HEAD
-            matchFailed("[0-9]");
-          }
-        }
-        if (result1 !== null) {
-          result0 = [];
-          while (result1 !== null) {
-            result0.push(result1);
-            if (/^[0-9]/.test(input.charAt(pos))) {
-              result1 = input.charAt(pos);
-              pos++;
-            } else {
-              result1 = null;
-              if (reportFailures === 0) {
-                matchFailed("[0-9]");
-              }
-            }
-          }
-        } else {
-          result0 = null;
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, digits) { return digits.join(""); })(pos0, result0);
-=======
             matchFailed("\"-\"");
           }
         }
@@ -218,7 +185,6 @@ SCHEEM = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, sign, digits) { return sign + digits.join(""); })(pos0, result0[0], result0[1]);
->>>>>>> gh-pages
         }
         if (result0 === null) {
           pos = pos0;
